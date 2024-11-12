@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from accounts.models import *
+from leaves.models import *
 
 class UserLoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255)
@@ -34,3 +35,8 @@ class WorkflowConfigurationSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkflowConfiguration
         fields = '__all__'
+
+class MyLeaveSetupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeaveSetup
+        fields =  '__all__'

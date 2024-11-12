@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models import Q
 from .serializers import *
+from leaves.models import *
 
 # Token generation helper
 def get_tokens_for_user(user):
@@ -86,3 +87,12 @@ class UserProfileView(APIView):
 #         serializer = AssociateDetailSerializer(associates, many=True)
 
 #         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MyLeavesSetupView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        my_leaves = LeaveSetup.objects.filter(associate_id = request.user)
+        serializer = MyLeaveSetupSerializer(my_leaves, many=True )
+        return Response(serializer.data)
