@@ -1,6 +1,6 @@
 from django.db import models
-from accounts.models import Associate
-from accounts.models import Associate
+from accounts.models import *
+
 
 # Create your models here.
 class Leave(models.Model):
@@ -18,21 +18,21 @@ class LeaveSetup(models.Model):
     leave_year = models.IntegerField()
     leave_year_start = models.DateField()
     leave_year_end = models.DateField()
-    casual_leave = models.IntegerField()
+    casual_leave = models.FloatField()
     cl_carry = models.BooleanField(default=False)
-    earned_leave = models.IntegerField()
+    earned_leave = models.FloatField()
     el_carry = models.BooleanField(default=False)
-    sick_leave = models.IntegerField()
+    sick_leave = models.FloatField()
     sl_carry = models.BooleanField(default=False)
-    paternity_leave = models.IntegerField()
+    paternity_leave = models.FloatField()
     pl_carry = models.BooleanField(default=False)
-    maternity_leave = models.IntegerField()
+    maternity_leave = models.FloatField()
     ml_carry = models.BooleanField(default=False)
-    loss_of_pay = models.IntegerField()
+    loss_of_pay = models.FloatField()
     lop_carry = models.BooleanField(default=False)
-    compensatory_off = models.IntegerField()
+    compensatory_off = models.FloatField()
     co_carry = models.BooleanField(default=False)
-    child_adoption_leave = models.IntegerField()
+    child_adoption_leave = models.FloatField()
     cal_carry = models.BooleanField(default=False)
     updated_by = models.CharField(max_length=50)
     updated_on = models.DateField(auto_now_add=True)
@@ -47,15 +47,34 @@ class LeaveApplication(models.Model):
     end_date = models.DateField()
     is_half_day = models.BooleanField(default=False)
     half_day_type = models.CharField(max_length=20, blank=True, null=True)
-    no_of_days = models.DecimalField(max_digits=5, decimal_places=1)
+    no_of_days = models.FloatField()
     leave_remarks = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=10,default='Pending')
     leave_apply_date = models.DateField(auto_now_add=True)
     leave_approve_date = models.DateField(blank=True, null=True)
-    # approval_id = models.CharField(max_length=10, blank=True, null=True)
     admin = models.ForeignKey(Associate,  on_delete=models.SET_NULL, blank=True,null=True,related_name='associates_admin')
     approve_by = models.CharField(max_length=10, blank=True, null=True)
     comments = models.TextField(blank=True, null=True)
+
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     if not self.doc_uid:
+            
+    #         dept_code = self.department.dept_code
+    #         unique_id = f"D{dept_code}{self.id}"
+    #         Doctor.objects.filter(id=self.id).update(doc_uid=unique_id)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.admin:
+            associate_id = self.associate.id
+            config = WorkflowConfiguration.objects.get(associate = associate_id)
+            admin = config.admin.id
+            LeaveApplication.objects.filter(associate = associate_id).update(admin = admin)
+
+
+
 
     def __str__(self):
         return f"Leave {self.leave_id} by {self.associate}"

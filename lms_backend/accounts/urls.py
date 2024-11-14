@@ -6,4 +6,6 @@ urlpatterns = [
     path('manager/associates/',AssociatesUnderManagementView.as_view()),
     path('associate/list/',AssociatesView.as_view()),
     path('associate/<int:id>/',AssociatesView.as_view()),
+    path('admin/applications/',ApplicationToAdminView.as_view()),
+    path('manager/applications/',ApplicationToManagerView.as_view()),
 ]
