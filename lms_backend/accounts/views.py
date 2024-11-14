@@ -174,3 +174,13 @@ class ApplicationToManagerView(APIView):
         # Serialize the associate data
         serializer = LeaveApplicationViewSerializer(applications, many=True)
         return Response(serializer.data)
+
+
+
+class AssociateCreateView(APIView):
+    def post(self,request):
+        serializer = AssociateViewSerializer(data = request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({"msg":"Associate registered"})
+        return Response(serializer.errors)

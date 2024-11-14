@@ -50,7 +50,7 @@ class LeaveApplication(models.Model):
     no_of_days = models.FloatField()
     leave_remarks = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=10,default='Pending')
-    leave_apply_date = models.DateField(auto_now_add=True)
+    leave_apply_date = models.DateTimeField(auto_now_add=True)
     leave_approve_date = models.DateField(blank=True, null=True)
     admin = models.ForeignKey(Associate,  on_delete=models.SET_NULL, blank=True,null=True,related_name='associates_admin')
     approve_by = models.CharField(max_length=10, blank=True, null=True)

@@ -297,3 +297,21 @@ class PendingLeaveApplications(APIView):
         for application in applications:
             appliction_list[str(application.associate.id)] = application.status
         return Response(appliction_list)
+
+
+
+class StatisticsView(APIView):
+    def get(self,request):
+        user = request.user.id
+        print(user)
+        associates = Associate.objects.all().count()
+        admins = Associate.objects.filter(is_admin=True).count()
+        managers = Associate.objects.filter(is_manager=True).count()
+        pending_applications= LeaveApplication.objects.filter(associate = user, status = "Pending").count()
+        
+        return Response({
+            "associates":associates,
+            "admins":admins,
+            "managers":managers,
+            "pending_applications":pending_applications
+        })

@@ -11,4 +11,5 @@ urlpatterns = [
     path('application/<int:id>/',LeaveApplicationUpdateView.as_view()),
     path('holidays/',HolidayView.as_view()),
     path('pending/applications/',PendingLeaveApplications.as_view()),
+    path('statistics/',StatisticsView.as_view()),
 ]
