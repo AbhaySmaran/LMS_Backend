@@ -13,8 +13,8 @@ Leave Management System Backend:-
 
 	Commands:-
 
-  -cd lms_backend
-  -pip install -r requirements.txt
+  cd lms_backend
+  pip install -r requirements.txt
 
 3.No migrations are needed as the database file provided already includes all necessary data and schema.
 
@@ -26,10 +26,10 @@ DATABASES = {
         'NAME': 'lms',               ##Your database file name
         'HOST': 'localhost',
         'USER': 'root',
-        ‘PASSWORD’:””,	         ##Your Mysql clint password
+        ‘PASSWORD’:” ”,	         ##Your Mysql clint password
     }
 }
 
 5.Then run the server.
 
-  -python manage.py runserver
+  python manage.py runserver
