@@ -3,7 +3,6 @@ Leave Management System Backend:-
 ## Set Up the Database -
 
 1. **Download the MySQL File**: - Download the MySQL database file (`lms.sql`) from the database directory.
-
 2. **Import the Database**: - Open your MySQL Workbench or preferred MySQL client. - Create a new database or choose an existing one to import the data.
 
 ##Runnig the Django Server-
@@ -11,7 +10,7 @@ Leave Management System Backend:-
 1.Create a virtual environment .
 2.Then install the dependencies from requirements.txt file wich is inside lms_backend directory.(lms_backend is the root project directory).
 
-	Commands:-
+Commands:-
 
   cd lms_backend
   pip install -r requirements.txt
